@@ -47,3 +47,50 @@ At the command prompt, I execute <i>sha1sum Example.txt</i> to create a SHA1sum 
 <br/>
 <img src="https://i.imgur.com/54bFjie.png" height="80%" width="80%" alt="Linux command line steps"/>
 <h3>Generate GnuPG Keys</h3>
+I'm still logged in as the student user. At the command prompt, I execute <i>gpgp --gen-key</i> to initiate the process for generating a public encryption key. When I'm prompted by the key generator I type the following answers for each response to the onscreen questions, pressing <b>Enter</b> after each entry:
+
+- I choose <b>1</b> for my key type selection
+- I enter <b>1024</b> for a key size of 1024 bits
+- When asked "Key is valid for?", I enter <b>0</b> so that the key does not expire  at all.
+- To confirm my choices, I enter <b>y</b> (for yes) saying it's correct.
+<br/>
+<img src="https://i.imgur.com/caiUdOY.png" height="60%" width="60%" alt="Linux command line steps"/>
+<br />
+Further into the key generator, I type the following answers in response to the request for a user ID to identify my key, pressing <b>Enter</b> after each entry.
+
+- Real name: <b>Student</b>
+- Email address: <b></b>
+- Comment: <b></b>
+- Change (N)ame, (C)omment, (E)mail or (O)kay//(Q)uit?: <b></b>
+- Passphrase: <b></b>
+- Repeat Passphrase: <b></b>
+
+Then the system should display an error message: <i>Not enough random bytes available.</i> So, I open a second terminal window and resize both windows to fit on the desktop. At the command prompt, I execute <i>./entropy_loop.sh</i> to run a script that will "keep the machine busy" while generating a key pair.
+<br/>
+<img src="https://i.imgur.com/5hbe79p.png" height="80%" width="80%" alt="Linux command line steps"/>
+<br />
+While that script is running in the background, I click the first terminal window to activate it. Within three to five minutes there should be a reappearance of the command prompt, indicating that sufficient bytes were available to create the GPG key. After confirming the command prompt returns to the first terminal window, I close the second terminal window. Back at the command prompt (on the 1st terminal window) I execute <i>gpg --export -a > student.pub</i> to save the GnuPG key to a new file called student.pub. At the command prompt, I execute <i>pwd</i> to determine which working directory (wd) I'm currently using. It should display /home/student/Documents, indicating that I'm in the user, student's, Documents folder.
+<br/>
+<img src="https://i.imgur.com/L2P4D6Y.png" height="60%" width="60%" alt="Linux command line steps"/>
+<br />
+Next, I execute <i>ls</i> to list the files in the Documents folder and verify that the student.pub file was saved to the correct user account and location.
+<br/>
+<img src="https://i.imgur.com/YgoU7US.png" height="60%" width="60%" alt="Linux command line steps"/>
+<br />
+Now, I want to generate a GnuPG key for the Instructor account. Back at the command prompt, I execute <i>su Instructor</i> to switch to the Instructor account. When I'm prompted for the password, I enter "instructor". At the command prompt, I execute <i>cd /home/Instructor</i> to change directories to the Instructor folder.
+<br/>
+<img src="https://i.imgur.com/G196clf.png" height="60%" width="60%" alt="Linux command line steps"/>
+<br />
+I'm essentially performing the same process for generating a key for the Student account and proceed to create the GnuPG keys for the Instructor account with the following identification:
+
+- Real name: <b></b>
+- Email address: <b></b>
+<br/>
+<img src="https://i.imgur.com/0ulhPZj.png" height="80%" width="80%" alt="Linux command line steps"/>
+<br />
+Once the command prompt returns in the first terminal window, I execute <i>gpg --export -a > instructor.pub</i> to save the GnuPG key to a new file called instructor.pub. At the command prompt, I execute ls to list the files in the folder and verify that the instructor.pub file was saved correctly.
+<br/>
+<img src="https://i.imgur.com/ZH4CEBq.png" height="60%" width="60%" alt="Linux command line steps"/>
+<br />
+Returning to the command prompt, I type <i>exit</i> and <b>press Enter</b> to return to using the Student account.
+<h3>Share GnuPG Key</h3>
