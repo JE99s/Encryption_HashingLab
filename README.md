@@ -59,11 +59,11 @@ I'm still logged in as the student user. At the command prompt, I execute <i>gpg
 Further into the key generator, I type the following answers in response to the request for a user ID to identify my key, pressing <b>Enter</b> after each entry.
 
 - Real name: <b>Student</b>
-- Email address: <b></b>
-- Comment: <b></b>
-- Change (N)ame, (C)omment, (E)mail or (O)kay//(Q)uit?: <b></b>
-- Passphrase: <b></b>
-- Repeat Passphrase: <b></b>
+- Email address: <b>student@securelabsondemand.com</b>
+- Comment: <b>press Enter</b>
+- Change (N)ame, (C)omment, (E)mail or (O)kay//(Q)uit?: <b>o</b>
+- Passphrase: <b>today is a nice day</b>
+- Repeat Passphrase: <b>today is a nice day</b>
 
 Then the system should display an error message: <i>Not enough random bytes available.</i> So, I open a second terminal window and resize both windows to fit on the desktop. At the command prompt, I execute <i>./entropy_loop.sh</i> to run a script that will "keep the machine busy" while generating a key pair.
 <br/>
@@ -83,8 +83,8 @@ Now, I want to generate a GnuPG key for the Instructor account. Back at the comm
 <br />
 I'm essentially performing the same process for generating a key for the Student account and proceed to create the GnuPG keys for the Instructor account with the following identification:
 
-- Real name: <b></b>
-- Email address: <b></b>
+- Real name: <b>Instructor</b>
+- Email address: <b>instructor@securelabsondemand.com</b>
 <br/>
 <img src="https://i.imgur.com/0ulhPZj.png" height="80%" width="80%" alt="Linux command line steps"/>
 <br />
@@ -105,7 +105,7 @@ At the command prompt, I execute <i>gpg --list-keys</i> to list the current publ
 At the command prompt. I execute <i>gpg --import instructor.pub</i> to import the instructor's GnuPG keys to the student public key ring. Again, I execute <i>gpg --list-keys</i> to list the updated public key ring for the student account as shown below.
 <br/>
 <img src="https://i.imgur.com/VwUEr05.png" height="75%" width="75%" alt="Linux command line steps"/>
-<br />
+
 <h3>Encrypt and Decrypt a ClearText Message</h3>
 Now, I will use the GnuPG (Gnu Privacy Guard) to encrypt a cleartext message that I will send between the two fictitious users (Instructor and Student) I’ve mentioned throughout this demonstration. I will first generate a GnuPG key from the Student account, then generate a GnuPG key for the Instructor account.
 At the command prompt, I execute <i>echo "this is a clear-text message from Jacob" > cleartext.txt</i> to save a clear-text message to a new file named <b>cleartext.txt</b>. Next, I exceute <i>gpg -e cleartext.txt</i> to encrypt the file. When the encryption process starts, I type the following responses, <b>pressing Enter</b> after each entry.
@@ -116,5 +116,16 @@ At the command prompt, I execute <i>echo "this is a clear-text message from Jaco
 
 Back at the command prompt, I execute <i>ls</i> to list the contents of the folder and verify that the encrypted file (cleartext.txt.gpg) has been created. At the command prompt, I execute <i>cat cleartext.txt.gpg</i> to view the contents of the encrypted file, as shown below.
 <br/>
-<img src="https://i.imgur.com/nYoq8bd.png)" height="75%" width="75%" alt="Linux command line steps"/>
+<img src="https://i.imgur.com/nYoq8bd.png" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
+Next, I want to copy the cleartext.gpg message to the Instructor account and use the GnuPG keys I've already exchanged to decrypt the cleartext.txt message. To do that, at the command prompt I execute <i>sudo cp cleartext.txt.gpg /home/Instructor</i> to copy the cleartext.txt.gpg file to the instructor home directory. When I'm prompted for the password, I enter <i>student</i> to continue.
+At the command prompt, I execute <i>sudo chown Instructor: Instructor cleartext.txt.gpg</i> to modify the permissions of the file so the Instructor user can open the file. I enter <i>instructor</i> if I'm prompted for the password.
+Returning to the command prompt, I execute <i>ls -la</i> to list the contents of the Instructor folder and the file permissions associated with each file. I verify that the Instructor has read privileges to the cleartext.txt.gpg file.
+<br/>
+<img src="https://i.imgur.com/TyPBq8V.png" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
+At the command prompt, I execute <i>su Instructor</i> to switch to the Instructor account. When I am prompted for the password, I enter <i>instructor</i>. At the command prompt, I execute <i>gpg -d cleartext.txt.gpg</i> to decrypt the message.
+When prompted for the passphrase, I type "today is a nice day" and <b>press Enter</b>, leading the system to display the contents of the decrypted message. I have successfully decrypted a message from another fictional user.
+<br/>
+<img src="https://i.imgur.com/AUHS2G0.png" height="75%" width="75%" alt="Linux command line steps"/>
 <br />
