@@ -39,3 +39,11 @@ Returning to the command prompt, I execute <i>sha1sum Example.txt > Example.txt.
 Next, I execute <i>sha1sum Example.txt.sha1</i> to check the SHA1sum created for the Example.txt file. If the file has not been modified, the system will display "Example.txt: OK", indicating that the SHA1sum hash is the same for both.
 <br/>
 <h3>Modify a File and Verify Hash Values</h3>
+At the command prompt, I execute <i>echo Jacob >> Example.txt</i> to add my name at the end of the Example.txt file, modifying its contents. Next, I execute <i>cat Example.txt</i> to view the contents of the modified .txt file. Back at the command prompt, I execute <i>md5sum Example.txt</i> to create an MD5sum hash string for that modified Example.txt file. The command will return a string of hexidecimal numbers that does not match the original string created from the orginal Example.txt file.
+<br/>
+<img src="https://i.imgur.com/x7wgYte.png" height="80%" width="80%" alt="Linux command line steps"/>
+<br />
+At the command prompt, I execute <i>sha1sum Example.txt</i> to create a SHA1sum hash string for the modified Example.txt file, returning a new hash string of hexidecimal numbers, different than the orginal string from the original Example.txt file.
+<br/>
+<img src="https://i.imgur.com/54bFjie.png" height="80%" width="80%" alt="Linux command line steps"/>
+<h3>Generate GnuPG Keys</h3>
