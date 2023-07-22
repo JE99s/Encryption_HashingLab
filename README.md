@@ -94,3 +94,27 @@ Once the command prompt returns in the first terminal window, I execute <i>gpg -
 <br />
 Returning to the command prompt, I type <i>exit</i> and <b>press Enter</b> to return to using the Student account.
 <h3>Share GnuPG Key</h3>
+Now I will share the public GnuPG key I just created for the Instructor account with the student account. This ensures that a file or message encrypted by a sender (student) can be decrypted by the recipient (Instructor). At the command prompt, I execute <i>cp /home/Instructor/instructor.pub /home/student/Documents/instructor.pub</i> to copy the instructor GnuPG keys (instructor.pub) to the student's Documents folder. At the command prompt, I execute <i>ls</i> to list the contents of the student folder and verify that the instructor.pub file is now included.
+<br/>
+<img src="https://i.imgur.com/Ihwuk0n.png" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
+At the command prompt, I execute <i>gpg --list-keys</i> to list the current public key ring for the student account. For now, the key ring will show only the student.pub key. Soon, I will import the instructor's public key.
+<br/>
+<img src="https://i.imgur.com/0pMs6K4.png" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
+At the command prompt. I execute <i>gpg --import instructor.pub</i> to import the instructor's GnuPG keys to the student public key ring. Again, I execute <i>gpg --list-keys</i> to list the updated public key ring for the student account as shown below.
+<br/>
+<img src="https://i.imgur.com/VwUEr05.png" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
+<h3>Encrypt and Decrypt a ClearText Message</h3>
+Now, I will use the GnuPG (Gnu Privacy Guard) to encrypt a cleartext message that I will send between the two fictitious users (Instructor and Student) I’ve mentioned throughout this demonstration. I will first generate a GnuPG key from the Student account, then generate a GnuPG key for the Instructor account.
+At the command prompt, I execute <i>echo "this is a clear-text message from Jacob" > cleartext.txt</i> to save a clear-text message to a new file named <b>cleartext.txt</b>. Next, I exceute <i>gpg -e cleartext.txt</i> to encrypt the file. When the encryption process starts, I type the following responses, <b>pressing Enter</b> after each entry.
+
+- Enter the [recipient] user ID. End with an empty line: <b>Instructor</b>
+- Use this key anyway? (y/N): <b>y</b>
+- Enter the user ID. End with an empty line: <b>press Enter</b>
+
+Back at the command prompt, I execute <i>ls</i> to list the contents of the folder and verify that the encrypted file (cleartext.txt.gpg) has been created. At the command prompt, I execute <i>cat cleartext.txt.gpg</i> to view the contents of the encrypted file, as shown below.
+<br/>
+<img src="https://i.imgur.com/nYoq8bd.png)" height="75%" width="75%" alt="Linux command line steps"/>
+<br />
